@@ -1,7 +1,8 @@
 use std::io::{self, Write};
 use std::collections::HashSet;
+use std::env;
+use std::fs;
 use std::os::unix::fs::PermissionsExt;
-use std::path::Path;
 
 fn main() {
     let mut shell_commands = HashSet::new();
@@ -26,7 +27,6 @@ fn main() {
                     continue;
                 } 
                 let path_var = env::var("PATH").unwrap_or_default();
-
                 let mut found = false;
                 for dir in env::split_paths(&path_var) {
 
