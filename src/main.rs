@@ -24,7 +24,8 @@ fn main() {
     shell_commands.insert("echo");
     shell_commands.insert("exit");
     shell_commands.insert("type");
-
+    shell_commands.insert("pwd");
+    
     loop {
         print!("$ ");
         io::stdout().flush().unwrap();
@@ -57,6 +58,8 @@ fn main() {
         } else if let Some(path) = find_in_path(cmd) {
             // Found an external executable — run it
             Command::new(&path) .arg0(cmd) .args(args).status().unwrap();
+        } else if cmd == "pwd" {
+            println!("{}", env::current_dir().unwrap().display());
         } else {
             println!("{}: command not found", cmd);
         }
